@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"sarahhsong.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="3Blue1Brown出品，关于线性代数一些基本概念的本质的分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The-essence-of-Linear-Algebra">
+<meta property="og:url" content="https://sarahhsong.github.io/2022/05/29/The-essence-of-Linear-Algebra/index.html">
+<meta property="og:site_name" content="芝麻1.0">
+<meta property="og:description" content="3Blue1Brown出品，关于线性代数一些基本概念的本质的分析">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523155501113.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523164347198.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523164526158.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523165544442.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523170846943.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524144953862.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524152003149.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524153643964.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524154523280.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524154732662.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524155530562.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524155914431.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524160257372.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220525144851139.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220525154546645.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220528001645085.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220528001915381.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220528001943025.png">
+<meta property="og:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220527212640674.png">
+<meta property="article:published_time" content="2022-05-29T04:09:20.000Z">
+<meta property="article:modified_time" content="2022-05-29T04:11:32.786Z">
+<meta property="article:author" content="SarahSong">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523155501113.png">
+
+
+<link rel="canonical" href="https://sarahhsong.github.io/2022/05/29/The-essence-of-Linear-Algebra/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://sarahhsong.github.io/2022/05/29/The-essence-of-Linear-Algebra/","path":"2022/05/29/The-essence-of-Linear-Algebra/","title":"The-essence-of-Linear-Algebra"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>The-essence-of-Linear-Algebra | 芝麻1.0</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">芝麻1.0</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vectors"><span class="nav-number">1.</span> <span class="nav-text">Vectors</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#two-understandings"><span class="nav-number">1.1.</span> <span class="nav-text">two understandings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#two-basic-operations"><span class="nav-number">1.2.</span> <span class="nav-text">two basic operations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Span"><span class="nav-number">2.</span> <span class="nav-text">Span</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#span"><span class="nav-number">2.1.</span> <span class="nav-text">span</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linear-combination"><span class="nav-number">2.2.</span> <span class="nav-text">linear combination</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basis-vectors"><span class="nav-number">2.3.</span> <span class="nav-text">basis vectors</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-transformations-particular-important"><span class="nav-number">3.</span> <span class="nav-text">Linear transformations (particular important)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#properties"><span class="nav-number">3.1.</span> <span class="nav-text">properties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numerical-description"><span class="nav-number">3.2.</span> <span class="nav-text">numerical description</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Matrix-multiplication"><span class="nav-number">4.</span> <span class="nav-text">Matrix multiplication</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#geometrically"><span class="nav-number">4.1.</span> <span class="nav-text">geometrically</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numerically"><span class="nav-number">4.2.</span> <span class="nav-text">numerically</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties-1"><span class="nav-number">4.3.</span> <span class="nav-text">properties</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#determinant"><span class="nav-number">5.</span> <span class="nav-text">determinant</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#representation"><span class="nav-number">5.1.</span> <span class="nav-text">representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#geometrically-1"><span class="nav-number">5.2.</span> <span class="nav-text">geometrically</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2D%E2%80%94%E2%80%94scaling-factor-of-area"><span class="nav-number">5.2.1.</span> <span class="nav-text">2D——scaling factor of area</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3D%E2%80%94%E2%80%94scaling-factor-of-parallelepiped-volume"><span class="nav-number">5.2.2.</span> <span class="nav-text">3D——scaling factor of parallelepiped volume</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numerically-1"><span class="nav-number">5.3.</span> <span class="nav-text">numerically</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#thoughts"><span class="nav-number">5.4.</span> <span class="nav-text">thoughts</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inverse-matrices%E3%80%81Rank%E3%80%81Null-space"><span class="nav-number">6.</span> <span class="nav-text">Inverse matrices、Rank、Null space</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#inverse-matrices"><span class="nav-number">6.1.</span> <span class="nav-text">inverse matrices</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rank"><span class="nav-number">6.2.</span> <span class="nav-text">Rank</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Null-space"><span class="nav-number">6.3.</span> <span class="nav-text">Null space</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dot-products%E3%80%81Duality"><span class="nav-number">7.</span> <span class="nav-text">Dot products、Duality</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dot-products"><span class="nav-number">7.1.</span> <span class="nav-text">dot products</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#duality"><span class="nav-number">7.2.</span> <span class="nav-text">duality</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cross-products"><span class="nav-number">8.</span> <span class="nav-text">Cross products</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cross-products-as-transformation"><span class="nav-number">9.</span> <span class="nav-text">Cross products as transformation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">9.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Properties"><span class="nav-number">9.2.</span> <span class="nav-text">Properties</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SarahSong"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">SarahSong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/SarahhSong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;SarahhSong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:songzhiyan@csu.edu.cn" title="E-Mail → mailto:songzhiyan@csu.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://sarahhsong.github.io/2022/05/29/The-essence-of-Linear-Algebra/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="SarahSong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="芝麻1.0">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The-essence-of-Linear-Algebra
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-05-29 12:09:20 / Modified: 12:11:32" itemprop="dateCreated datePublished" datetime="2022-05-29T12:09:20+08:00">2022-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Maths/" itemprop="url" rel="index"><span itemprop="name">Maths</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>3Blue1Brown出品，关于线性代数一些基本概念的本质的分析</p>
+<span id="more"></span>
+
+<h1 id="Vectors"><a href="#Vectors" class="headerlink" title="Vectors"></a>Vectors</h1><h2 id="two-understandings"><a href="#two-understandings" class="headerlink" title="two understandings"></a>two understandings</h2><ul>
+<li>physics students perspective：不同维度空间里的有向线段，大小和方向</li>
+<li>cs students perspective：有实际意义的数字列表，进行数据操作</li>
+</ul>
+<p>in geometry, make it rooted in the origin</p>
+<h2 id="two-basic-operations"><a href="#two-basic-operations" class="headerlink" title="two basic operations"></a>two basic operations</h2><ul>
+<li><strong>vector addition:</strong> 几何上强调路径的无关性，关注起点和终点</li>
+<li><strong>multiplication by numbers:</strong> scaling 缩放，scaler and number are the same meaning（标量）</li>
+</ul>
+<h1 id="Span"><a href="#Span" class="headerlink" title="Span"></a>Span</h1><h2 id="span"><a href="#span" class="headerlink" title="span"></a>span</h2><p>Fix one of two scalars and let the other change freely, the tip of the resulting vector <strong>draws a straight line</strong>.</p>
+<p>If both scalars change freely, the resulting vector can reach every point in the plane or all points in a linear  or still the origin if they are zero vectors.</p>
+<p>Seen from two angels, vector is a point or 有向线段</p>
+<p><strong>So the span of $\vec{v}$ and $\vec{w}$ is the set of all their linear combinations.</strong> 全部的线性组合构成的向量集合。</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523155501113.png" alt="image-20220523155501113"></p>
+<h2 id="linear-combination"><a href="#linear-combination" class="headerlink" title="linear combination"></a>linear combination</h2><p>span的维度和构成改span的线性无关的向量个数有关，即if each vector add new dimension to the span, they are said to be <strong>linear independent</strong>.</p>
+<h2 id="basis-vectors"><a href="#basis-vectors" class="headerlink" title="basis vectors"></a>basis vectors</h2><p>Definition: The basis of a vector space is a set of linear independent vectors that span the full space.</p>
+<p>即互不线性相关的n个向量可以构成n维空间的基向量</p>
+<ul>
+<li>$a\vec{u}+b\vec{v}+c\vec{w}=0,\  if\ and\ only\ if\ a=b=c=0$</li>
+<li>$a\vec{u}+b\vec{v}+c\vec{w}=0,not\ a\vec{u}+b\vec{v}=\vec{w}$（任一向量不能再另外两个向量张成的的span里）</li>
+</ul>
+<p>In coordinate systems, different basis vectors make different vector coordinates.</p>
+<h1 id="Linear-transformations-particular-important"><a href="#Linear-transformations-particular-important" class="headerlink" title="Linear transformations (particular important)"></a>Linear transformations (particular important)</h1><h2 id="properties"><a href="#properties" class="headerlink" title="properties"></a>properties</h2><ul>
+<li>the origin remain fixes 原点不变</li>
+<li>lines remain lines 直线在变换后仍为直线，保持网格线平行并且等距分布</li>
+</ul>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523164347198.png" alt="image-20220523164347198"></p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523164526158.png" alt="image-20220523164526158"></p>
+<h2 id="numerical-description"><a href="#numerical-description" class="headerlink" title="numerical description"></a>numerical description</h2><p>for example:  $\vec{v}=-1\vec{i}+2\vec{j}$ </p>
+<p>before transformation:<br>$\vec{i}=<br>\begin{bmatrix}<br>    1 \\<br>    0<br>\end{bmatrix},<br>\vec{j}=<br>\begin{bmatrix}<br>    0 \\<br>    1 \end{bmatrix},<br>\vec{v}=<br>\begin{bmatrix}<br>    -2 \<br>    2 \end{bmatrix}$</p>
+<p>after transformation: $\vec{i}=\begin{bmatrix} 1\\ 3 \end{bmatrix}, \vec{j}=\begin{bmatrix} -2\\ 1 \end{bmatrix},\vec{v}=\begin{bmatrix} -5\\ -1 \end{bmatrix}$</p>
+<p>so if $\begin{bmatrix} -1\\ 2 \end{bmatrix} \rightarrow \begin{bmatrix} x\\ y \end{bmatrix}$, such transformation can be defined generally. </p>
+<p>一个二维的线性变换仅由4个数字完全确定（基向量变换后的坐标），其构造一个矩阵 called 2x2 Matrix $\begin{bmatrix}<br>a &amp; b \<br>c &amp; d<br>\end{bmatrix}$ 来表示这个变换的所有信息，$L(\vec{i})=\begin{bmatrix} a  \\  c \end{bmatrix},L(\vec{j})=\begin{bmatrix} b  \\  d \end{bmatrix}$</p>
+<p>计算的原则如下图，几何意义：scaling then adding</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523165544442.png" alt="image-20220523165544442"></p>
+<p>由此引出了矩阵乘法的计算方式，矩阵向量乘法就是计算线性变换作用于给定向量的一种途径。可以把见到的矩阵都理解为对空间的一种特殊变换。</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220523170846943.png" alt="image-20220523170846943"></p>
+<h1 id="Matrix-multiplication"><a href="#Matrix-multiplication" class="headerlink" title="Matrix multiplication"></a>Matrix multiplication</h1><h2 id="geometrically"><a href="#geometrically" class="headerlink" title="geometrically"></a>geometrically</h2><p>applying one transformation then another </p>
+<p>Why to read from right to left?——see function $f(g(x))$!</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524144953862.png" alt="image-20220524144953862"></p>
+<h2 id="numerically"><a href="#numerically" class="headerlink" title="numerically"></a>numerically</h2><p>$M_1=\begin{bmatrix} 0&amp;2\\1&amp;0 \end{bmatrix},M_2=\begin{bmatrix} 1&amp;-2\\1&amp;0 \end{bmatrix},M_1M_2=\begin{bmatrix} a&amp;b\\c&amp;d \end{bmatrix}$</p>
+<p>$\begin{bmatrix} 0&amp;2\\1&amp;0 \end{bmatrix} \begin{bmatrix} 1\\1 \end{bmatrix}=1\begin{bmatrix} 0\\1\end{bmatrix}+1\begin{bmatrix} 2\\0\end{bmatrix}=\begin{bmatrix} a\\c \end{bmatrix}$</p>
+<p>$\begin{bmatrix} 1&amp;-2\\1&amp;0 \end{bmatrix} \begin{bmatrix} -2\\0 \end{bmatrix}=-2\begin{bmatrix} 1\\1\end{bmatrix}+0\begin{bmatrix} -2\\0\end{bmatrix}=\begin{bmatrix} b\\d \end{bmatrix}$</p>
+<p>$\Rightarrow \begin{bmatrix} a&amp;b\\c&amp;d \end{bmatrix}\begin{bmatrix} e&amp;f\\g&amp;h\end{bmatrix}=\begin{bmatrix} ae+bg&amp;af+bh\\ce+dg&amp;cf+dh \end{bmatrix}$</p>
+<h2 id="properties-1"><a href="#properties-1" class="headerlink" title="properties"></a>properties</h2><ul>
+<li><p>$M_1M_2 \neq M_2M_1$ (rotate then shear vs shear than rotate) $\begin{bmatrix} 1&amp;0\\1&amp;1 \end{bmatrix} \begin{bmatrix} 0&amp;-1\\1&amp;0 \end{bmatrix}$</p>
+</li>
+<li><p>Associativity: $(AB)C=A(BC)$ （same three transformation in the same order）</p>
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524152003149.png" alt="image-20220524152003149"></p>
+<h1 id="determinant"><a href="#determinant" class="headerlink" title="determinant"></a>determinant</h1><p>The purpose of computation is insight, not numbers.</p>
+<h2 id="representation"><a href="#representation" class="headerlink" title="representation"></a>representation</h2><p>using determinant to measure how much it stretches or squishes the space（the change of unit square area or unit volume）</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524153643964.png" alt="image-20220524153643964"></p>
+<h2 id="geometrically-1"><a href="#geometrically-1" class="headerlink" title="geometrically"></a>geometrically</h2><p>if the determinant is zero:</p>
+<ul>
+<li>the basic vectors of the matrix are linear combination </li>
+<li>the transformation can squish everything into a smaller dimension</li>
+</ul>
+<p>if the determinant is negtive:</p>
+<ul>
+<li>orientation flipping（空间翻转，基向量的空间次序变化，顺时针vs逆时针，左手定则vs右手定则）</li>
+<li>the absolute value still tells the scaling factor</li>
+</ul>
+<h3 id="2D——scaling-factor-of-area"><a href="#2D——scaling-factor-of-area" class="headerlink" title="2D——scaling factor of area"></a>2D——scaling factor of area</h3><p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524154523280.png" alt="image-20220524154523280"></p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524154732662.png" alt="image-20220524154732662"></p>
+<h3 id="3D——scaling-factor-of-parallelepiped-volume"><a href="#3D——scaling-factor-of-parallelepiped-volume" class="headerlink" title="3D——scaling factor of parallelepiped volume"></a>3D——scaling factor of parallelepiped volume</h3><p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524155530562.png" alt="image-20220524155530562"></p>
+<h2 id="numerically-1"><a href="#numerically-1" class="headerlink" title="numerically"></a>numerically</h2><p>$det(\begin{bmatrix} a&amp;b\\c&amp;d \end{bmatrix})=ad-bc$</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524155914431.png" alt="image-20220524155914431"></p>
+<p>$det(\begin{bmatrix} a&amp;b&amp;c\\d&amp;e&amp;f\\g&amp;h&amp;i \end{bmatrix})=a\ det(\begin{bmatrix} e&amp;f\\h&amp;i \end{bmatrix})-b\ \begin{bmatrix} d&amp;f\\g&amp;i \end{bmatrix}+c\begin{bmatrix} d&amp;e\\g&amp;h \end{bmatrix}$</p>
+<h2 id="thoughts"><a href="#thoughts" class="headerlink" title="thoughts"></a>thoughts</h2><p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220524160257372.png" alt="image-20220524160257372"></p>
+<p>strict proof:</p>
+<p># </p>
+<p>Ask the right question is harder than to answer it. —Georg Cantor</p>
+<h1 id="Inverse-matrices、Rank、Null-space"><a href="#Inverse-matrices、Rank、Null-space" class="headerlink" title="Inverse matrices、Rank、Null space"></a>Inverse matrices、Rank、Null space</h1><h2 id="inverse-matrices"><a href="#inverse-matrices" class="headerlink" title="inverse matrices"></a>inverse matrices</h2><p>$A\vec{x}=\vec{v}$ ,x进行矩阵A表示线性变换后，向量x变为向量v，求向量x，即做一个A的逆变换（$A^{-1}A=E$, 恒等变换called identity transformation）</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220525144851139.png" alt="image-20220525144851139"></p>
+<p>$if\ det(A) \neq0$</p>
+<p>$\Rightarrow AA^{-1}\vec{x}=A^{-1}\vec{v}=\vec{x}$，one unique solution</p>
+<p>$if\ det(A)=0$</p>
+<p>$\Rightarrow$ the space is squished and $A^{-1}$ doesn’t exist for low dimension can’t unsquish to high dimension. 有多解或无解两种情况</p>
+<ul>
+<li>in 2D space，如若线性变换后，空间被压缩为一条直线，且 $\vec{v}$ 正好在压缩后的直线上，那么有多解；若不在，则无解</li>
+<li>in 3D space,  压缩后是一条直线 $\vec{x}$ 有解对于 $\vec{v}$ 的条件比是压缩后是一个平面的条件更为苛刻</li>
+</ul>
+<h2 id="Rank"><a href="#Rank" class="headerlink" title="Rank"></a>Rank</h2><p>the dimension of the column space</p>
+<p><strong>Column space:</strong> Set of all possible outputs $A\vec{v}$ —— the span of columns</p>
+<p><strong>full rank:</strong> rank(A) equals the number of columns</p>
+<p>zero vector is always in the column space</p>
+<p>$eg. Rank(\begin{bmatrix} 1&amp;-2\\2&amp;-4 \end{bmatrix})=1,Rank(\begin{bmatrix} 2&amp;-2\\2&amp;-4 \end{bmatrix})=2,Rank(\begin{bmatrix} 2&amp;-1&amp;1\\2&amp;-1&amp;0\\1&amp;-0.5&amp;-4 \end{bmatrix})=2$</p>
+<h2 id="Null-space"><a href="#Null-space" class="headerlink" title="Null space"></a>Null space</h2><p>the set of all vectors which become the null vector after a certain linear transformation </p>
+<h1 id="Dot-products、Duality"><a href="#Dot-products、Duality" class="headerlink" title="Dot products、Duality"></a>Dot products、Duality</h1><h2 id="dot-products"><a href="#dot-products" class="headerlink" title="dot products"></a>dot products</h2><ul>
+<li><p>numerically computation: $(1,2)\cdot(3,4)=1 \times3+2\times4$</p>
+</li>
+<li><p>geometrically intuition: projection with symmetry</p>
+</li>
+</ul>
+<h2 id="duality"><a href="#duality" class="headerlink" title="duality"></a>duality</h2><p><strong>Duality $\Leftrightarrow$ Natural-but-surprising correspondence</strong></p>
+<p>first, introduce a lineat transformation: $\begin{bmatrix} 1&amp;2 \end{bmatrix} \begin{bmatrix} 3\\4 \end{bmatrix}=\begin{bmatrix} 1\times3+2\times4 \end{bmatrix}$</p>
+<p><strong>Matrix-vector product corresponds to Dot product. Why?</strong></p>
+<p>如果把一个二维空间压缩成一维空间（直线），这个线性变换的矩阵如何求呢？即我们要求基向量经过变换后在数轴上的一维坐标，先找一个单位向量$\vec{u}=\begin{bmatrix} u_x\\u_y \end{bmatrix}$，且落在目标直线上。</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220525154546645.png" alt="image-20220525154546645"></p>
+<p>According to some subtle symmetry, we can get that the linear transformation represent as $\begin{bmatrix} u_x&amp;u_y \end{bmatrix}$. So because of the similar computing method and geometric meaning, we can relate the projection to the linear transformation. Projecting matrix mutiply by a given vector equals the dot product of a dual vector and the given vector.</p>
+<p>这也解释了与单位向量的点积等于将向量投影到单位向量所在直线上的长度。若不是单位向量，可理解成同方向单位向量的缩放，结果相差一个scalar。</p>
+<h1 id="Cross-products"><a href="#Cross-products" class="headerlink" title="Cross products"></a>Cross products</h1><p>Every dimension is special. ——Jeff Lagarias</p>
+<p>2D and 3D vector’s cross product. Compute magnitude by using determinant and direction using <strong>Right hand grip rule</strong></p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220528001645085.png" alt="image-20220528001645085"></p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220528001915381.png" alt="image-20220528001915381"></p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220528001943025.png" alt="image-20220528001943025"></p>
+<h1 id="Cross-products-as-transformation"><a href="#Cross-products-as-transformation" class="headerlink" title="Cross products as transformation"></a>Cross products as transformation</h1><p>Not to take glory in the difficulty of a proof: difficulty means we have not understand. The ideal is to be able to paint a landscape in which the proof is obvious. </p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>First, define a certain linear transformation from 3D space to the number line taking the determinant of a matrix in terms of $\vec{v},\vec{w}$.</p>
+<p>$f(\begin{bmatrix} x\\y\\z \end{bmatrix})=det(\begin{bmatrix}x&amp;v_1&amp;w_1\\y&amp;v_2&amp;w_2\\z&amp;v_3&amp;w_3 \end{bmatrix})$ (3D to 1D represented as a 1x3 matrix )</p>
+<p>$\Leftrightarrow \begin{bmatrix}p_1&amp;p_2&amp;p_3 \end{bmatrix} \begin{bmatrix}x\\y\\z \end{bmatrix}=det(\begin{bmatrix}x&amp;v_1&amp;w_1\\y&amp;v_2&amp;w_2\\z&amp;v_3&amp;w_3 \end{bmatrix})$  (1)-&gt;（根据线性变换和向量的对偶性）</p>
+<p>$\Leftrightarrow \begin{bmatrix}p_1\\p_2\\p_3 \end{bmatrix}\cdot \begin{bmatrix}x\\y\\z \end{bmatrix}=det(\begin{bmatrix}x&amp;v_1&amp;w_1\\y&amp;v_2&amp;w_2\\z&amp;v_3&amp;w_3 \end{bmatrix}) $ (2)</p>
+<p>$\Leftrightarrow p_1x+p_2y+p_3z=x(v_2w_3-v_3w_2)+y(v_3w_2-v_1w_3)+z(v_1w_2-v_2w_1)$ (3)</p>
+<p>$\Leftrightarrow \begin{bmatrix}p_1\\p_2\\p_3 \end{bmatrix}=\begin{bmatrix}v_2w_3-v_3w_2\\v_3w_2-v_1w_3\\v_1w_2-v_2w_1 \end{bmatrix}$ (4)</p>
+<p>而由于 $\vec{v} \cross \vec{w}=\vec{p}$ ，根据推导过程，引导我们使用以下的行列式方法进行计算。</p>
+<p>$\Rightarrow \vec{v} \cross \vec{w}=det(\begin{bmatrix}\vec{i}&amp;v_1&amp;w_1\\ \vec{j}&amp;v_2&amp;w_2\\ \vec{k}&amp;v_3&amp;w_3 \end{bmatrix})$</p>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p>什么样的 $\vec{p}$ 能满足9.1中定义的等式呢，我们来探究一下它的性质（联系叉积的几何意义）就能回答以下的两个问题了。</p>
+<p><strong>Q1:</strong> Why cross product’s numerical magnitude is the area of the parallelogram which the two vectors make?</p>
+<p><strong>Q2:</strong> Why cross product’s direction is perpendicular to the plane which the two vectors span?</p>
+<p>观察9.1（2），左边看作用投影计算的点积，右边看作是以$\vec{v} 、\vec{w}$为底面的平行六面体的体积。（同时可以理解为混合积——叉积再点积得到体积）Thinking geomatrically，若<strong>对于任一（x,y,z）都成立</strong>， $\vec{p}$ 必须垂直于 $\vec{v}和\vec{w}$ 构成的平面，大小等于 $\vec{v}和\vec{w}$ 构成的平行四边形的面积。</p>
+<p><img src="C:%5CUsers%5CSarah%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20220527212640674.png" alt="image-20220527212640674"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/20/test-my-site/" rel="prev" title="test_my_site">
+                  <i class="fa fa-chevron-left"></i> test_my_site
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SarahSong</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
